@@ -6,15 +6,16 @@ import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
  
-  // getProviders gives us the sign in option using google and next auth
+  // getProviders get the current authentication providers 
   useEffect(() => {
     const setupProviders = async () => {
       const response = await getProviders();
       setProviders(response); 
+      console.log(response)
     };
  
     setupProviders();
@@ -57,7 +58,7 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {/* If the provider is not null */}
+            {/* If the provider is not null (or we can say providers is available) */}
             {providers &&
               Object.values(providers).map((provider) => (
                 <button
