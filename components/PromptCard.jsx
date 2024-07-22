@@ -8,7 +8,10 @@ import { usePathname, useRouter } from "next/navigation";
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
 
   const [copied, setCopied] = useState("")
-
+  const { data:session } = useSession()
+  const pathName = usePathname()  // specify the path of the current route
+  const router = useRouter()
+ 
   const handleCopy = () => {
     setCopied(post.prompt)  // set the copied state to post.prompt 
     navigator.clipboard.writeText(post.prompt)  // 
@@ -57,6 +60,25 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
       onClick={() => handleTagClick && handleTagClick(post.tag)}>
         {post.tag}
       </p>
+
+    {
+    /* Checking if the sessionId equals post-creator-Id from the database 
+      (We can only have this edit and delete feature if the post creator is the current logged in user) 
+    */
+    }
+      {session.user.id === post.creator._id && 
+      pathName === '/profile' && (
+        <div>
+          <p className="font-inter text-sm green_gradient cursor_ppinter"
+          onClick={handleEdit}>
+            Edit
+          </p>
+          <p className="font-inter text-sm orange_gradient cursor-pointer"
+          onClick={handleDelete}>
+            Delete
+          </p>
+          </div>
+      )}
     </div>
   );
 };
