@@ -19,3 +19,4 @@
 - Features 
     - For user Authentication we installed next-auth api authentication route 
     - Used Google as an authentication provider
+    - Used MongoDB atlas for Cloud Storage Database.
