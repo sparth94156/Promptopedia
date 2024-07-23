@@ -24,7 +24,7 @@ const CreatePrompt = () => {
         method: "POST",
         body: JSON.stringify({
           prompt: post.prompt,
-          userId: session?.user.id, // to check for the session (sessionId)
+          userId: session?.user.id, // to check for the session and store it (sessionId)
           tag: post.tag,
         }),
       });

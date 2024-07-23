@@ -1,5 +1,6 @@
 import { Schema, model, models } from "mongoose";   // mongoose helps us interacting with the database
 
+// Schema(Model) of the user document
 const UserSchema = new Schema({ 
     email: {
         type: String,

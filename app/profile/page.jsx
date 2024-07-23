@@ -8,6 +8,7 @@ import Profile from "@components/Profile";
 const Myprofile = () => {
   const { data: session } = useSession(); // We get the session using useSession hook
   const [posts, setPosts] = useState([]);
+  const router = useRouter()
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -19,8 +20,10 @@ const Myprofile = () => {
     // We fetch the data only when the we have the session
     if (session?.user.id) fetchPost();
   }, []);
-  const handleEdit = () => {
-     
+  
+  const handleEdit = (post) => {
+    // we'll not just update the prompt, we should take it to some other page where we can edit it in a proper way 
+    router.push(`/update-prompt?id=${post._id}`) 
   };
 
   const handleDelete = () => {};

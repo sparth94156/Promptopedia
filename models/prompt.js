@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-// Schema of the document (model)
+// Schema(model) of the prompt document 
 const PromptSchema = new Schema({
     creator: {
         type: Schema.Types.ObjectId,
