@@ -7,7 +7,7 @@ export const POST = async (req, res) => {
     try {
         await connectToDB();     // Connection to MongoDB (Now we need to create a model for the prompt)
         const newPrompt = new Prompt({
-            creator:userId,
+            creator:userId,     // passing userId to know that user is signed in
             prompt,
             tag
         }) 

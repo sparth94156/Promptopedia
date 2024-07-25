@@ -1,6 +1,9 @@
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google"
-import { connectToDB } from "@utils/database";
+import EmailProvider  from "next-auth/providers/email"
+import { connectToDB } from "@utils/database"; 
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+
 import User from "@models/user";
 
 const handler = NextAuth({
@@ -10,14 +13,22 @@ const handler = NextAuth({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_SECRET,
         }),
+        EmailProvider({
+            server: process.env.EMAIL_SERVER,
+            from: process.env.EMAIL_FROM
+        }),
     ],
+    adapter: MongoDBAdapter(connectToDB),
+    secret: process.env.NEXT_AUTH_SECRET,
     callbacks: {
         async session({ session }) {
             // we want to be able to get the data every time to keep an existing running session
+
+            // Finding the document that matches with session email to check for already existing account
             const sessionUser = await User.findOne({
                 email: session?.user.email,
             }) 
-            // stores the user id from MongoDB to session
+            // stores the user document id from MongoDB to session
             session.user.id = sessionUser._id.toString()
             return session;
         },

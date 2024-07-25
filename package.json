@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^3.4.1",
+    "@clerk/nextjs": "^5.2.6",
     "bcrypt": "^5.1.1",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.1",
     "next": "^14.2.3",
     "next-auth": "^4.24.5",
+    "nodemailer": "^6.9.14",
     "react": "^18",
     "react-dom": "^18"
   },

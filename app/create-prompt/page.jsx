@@ -6,20 +6,20 @@ import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 
 const CreatePrompt = () => {
-  const [submitting, setSubmitting] = useState(false); // check if user is submitting
+  const [submitting, setSubmitting] = useState(false); // check if user is in submitting state
   const [post, setPost] = useState({
     prompt: "",
     tag: "",
   });
-  const session = useSession();
+  const session = useSession(); // to check if user is login or not
   const router = useRouter();
 
   const createPrompt = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
+    setSubmitting(true); // while submitting the form we set the submitting to true
 
-    // Making the post fetch call for create prompt
     try {
+      // Making the post fetch call for create prompt
       const response = await fetch("/api/prompt/new", {
         method: "POST",
         body: JSON.stringify({
@@ -34,11 +34,13 @@ const CreatePrompt = () => {
     } catch (error) {
       console.log(error.message);
     } finally {
+      // When submitting is done finally reset the submitting state to false
       setSubmitting(false);
     }
   };
   return (
     <div className="">
+      {/* Form component displays the front end */}
       <Form
         type="Create"
         post={post}
